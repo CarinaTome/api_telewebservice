@@ -1,0 +1,20 @@
+{
+  "name": "telemoveis",
+  "version": "1.0.0",
+  "description": "api telemoveis",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Micael Pires",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.3",
+    "mongose": "0.0.2-security",
+    "nodemon": "^1.18.9",
+    "router": "^1.3.3"
+  }
+}

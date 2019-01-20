@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js"></script>
+
+
+</head>
+
+<style>
+
+  body{
+  background: linear-gradient(to bottom, #006699 0%, #0099cc 100%);
+}
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: none;
+  color: #006699;
+  text-align: center;
+  font-size: 20px;
+  padding: 15px;
+  width: 165px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.button1 {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: none;
+  color: #006699;
+  text-align: center;
+  font-size: 20px;
+  padding: 15px;
+  width: 165px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button1 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button1 span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button1:hover span {
+  padding-right: 25px;
+}
+
+.button1:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+        h1 {
+          color: white;
+          font-family: Lucida;
+          font-size: 150%;
+        }
+        h2 {
+          color: white;
+          font-family: Lucida;
+          font-size: 125%;
+        }
+        p  {
+          color: white;
+          font-family: Lucida;
+          font-size: 100%;
+        }
+
+        tr  {
+          color: white;
+          font-family: Lucida;
+          font-size: 100%;
+        }
+
+        table, th, td {
+          border: 1px solid rgb(255, 255, 255);
+          border-collapse: collapse;
+        }
+
+        table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #006699}
+
+th {
+  background-color: #ffffff;
+  color: #006699;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #006699;
+  border-radius: 4px;
+}
+
+
+</style>
+
+<script>
+
+  function vertelemovel() {
+
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var myArr = JSON.parse(this.responseText);
+        linhas = "<table> <tr><th>Id</th><th>Nome</th><th>Ram</th><th>Armazenamento</th><th>Resolução</th><th>Câmera</th><th>Preço</th></tr>";
+        for (i = 0; i < myArr.length; i++) {
+
+          linhas = linhas + "<tr>";
+          linhas = linhas + "<td>" + myArr[i]._id + "</td>";
+          linhas = linhas + "<td>" + myArr[i].nome + "</td>";
+          linhas = linhas + "<td>" + myArr[i].ram + "</td>";
+          linhas = linhas + "<td>" + myArr[i].armazenamento + "</td>";
+          linhas = linhas + "<td>" + myArr[i].resolucao + "</td>";
+          linhas = linhas + "<td>" + myArr[i].camera + "</td>";
+          linhas = linhas + "<td>" + myArr[i].preco + "</td>";
+          linhas = linhas + "</tr>";
+        }
+        linhas = linhas + "</table>";
+        document.getElementById("tabela").innerHTML = linhas;
+      }
+    };
+
+    xhttp.open("GET", "http://localhost:8888/telemoveis", true);
+
+    xhttp.send();
+
+  }
+
+  function IsEmpty() {
+
+    if (f.idnome.value == "" || f.idram.value == "" || f.idarmazenamento.value == ""
+      || f.idresolucao.value == "" || f.idcamera.value == "" || f.idpreco.value == "") {
+      alert("Por favor, preencha os campos obrigatórios!");
+      return false;
+    }
+    return true;
+  }
+
+  function esconder() {
+
+    document.getElementById('divdemo').style.display = "none";
+    document.getElementById("erro").innerText = "";
+  }
+
+  function inserirtelemovel() {
+
+    if (IsEmpty() == false) {
+      document.getElementById("erro").innerText = "Preencha os Campos Obrigatorios!";
+      document.getElementById('divdemo').style.display = "block";
+      return;
+
+    }
+
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+
+        document.getElementById("demo").innerHTML = "Dados inseridos com sucesso!";
+        document.getElementById('divdemo').style.display = "block";
+
+      }
+    };
+    xhttp.open("POST", "http://localhost:8888/telemoveis/registo", true);
+
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    parms1 = "nome=" + f.idnome.value + "&" +
+      "ram=" + f.idram.value + "&" +
+      "armazenamento=" + f.idarmazenamento.value + "&" +
+      "resolucao=" + f.idresolucao.value + "&" +
+      "camera=" + f.idcamera.value + "&" +
+      "preco=" + f.idpreco.value;
+
+    xhttp.send(parms1);
+
+  }
+
+
+</script>
+
+<body>
+
+
+  <div id="box1">
+
+    <div id='divdemo' style="display: none">
+      <p id="demo"></p>
+
+      <input class="button" type="button" value="Ocultar" onclick="esconder()">
+
+    </div>
+
+    <h1>Telemóveis</h1>
+
+    <form id="f">
+
+      <h2>Registo de Telemóveis</h2>
+
+      <p id="erro">
+
+      </p>
+
+      <p><label for="nome">Nome:</label><br>
+
+        <input type="text" id="idnome" name="nomebox" required></p>
+
+      <p><label for="ram">Ram:</label><br>
+
+        <input type="text" id="idram" name="rambox"></p>
+
+      <p><label for="armazenamento">Armazenamento:</label><br>
+
+        <input type="text" id="idarmazenamento" name="armazenamentobox"></p>
+
+      <p><label for="resolucao">Resolução:</label><br>
+
+        <input type="text" id="idresolucao" name="resolucaobox"></p>
+
+
+      <p><label for="camera">Câmera:</label><br>
+
+        <input type="text" id="idcamera" name="camerabox"></p>
+
+
+      <p><label for="preco">Preço:</label><br>
+
+        <input type="text" id="idpreco" name="precobox"></p>
+
+      <p> <input class="button" id="button" value="Inserir" onclick="inserirtelemovel()"></p>
+
+
+    </form>
+
+
+
+  </div>
+
+  <div id="box2">
+
+
+    <form id="i">
+
+
+      <p>
+        <h2>Dados</h2>
+      </p>
+
+
+      <p><input class="button1" type="button" id="button1" value="Visualizar" onclick="vertelemovel()" style="vertical-align:middle"></p>
+
+      <div id="tabela"></div>
+
+    </form>
+
+  </div>
+
+</body>
+
+</html>
