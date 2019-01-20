@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var telemovelController = require('../controllers/telemovelController');
+var telemovelController = require('./telemovelController');
 
 
 router.get('/', function (req, res) {
